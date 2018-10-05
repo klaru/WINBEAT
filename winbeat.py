@@ -118,31 +118,6 @@ def Help():
             Again = input("Hit <Return> to return to Help Menu: ")
             helpfile.close()
 # end help
-
-def gui_input(prompt):
-
-    root = Toplevel()
-    # this will contain the entered string, and will
-    # still exist after the window is destroyed
-    var = StringVar()
-
-    # create the GUI
-    label = Label(root, text=prompt)
-    entry = Entry(root, textvariable=var)
-    label.pack(side="left", padx=(20, 0), pady=20)
-    entry.pack(side="right", fill="x", padx=(0, 20), pady=20, expand=True)
-
-    # Let the user press the return key to destroy the gui 
-    entry.bind("<Return>", lambda event: root.destroy())
-
-    # this will block until the window is destroyed
-    root.wait_window()
-
-    # after the window has been destroyed, we can't access
-    # the entry widget, but we _can_ access the associated
-    # variable
-    value = var.get()
-    return value
     
 if __name__ == '__main__':
     winbeat = Tk()
@@ -242,8 +217,11 @@ if __name__ == '__main__':
         if SelOpt == '1':
 	        winbeat.destroy()
         elif SelOpt == '2':
-            Reflectcoef(text)
-            break
+            while True :
+                text.delete('1.0', END)
+                Again = Reflectcoef(text)
+                text.delete('1.0', END)
+                if (Again =='n') or (Again =='N') : break
         elif SelOpt == '3':
 	        StripLineAnal()
         elif SelOpt == '4':

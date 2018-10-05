@@ -16,6 +16,7 @@ from tkinter import *
 #procedure LoadParameters
 #procedure menu(NumOpt : integer; Header : str; OptArray : strgarray; var SelOpt : opt);
 #procedute StatIterNum;
+#procedure gui_input
 
 #****************************************************************************
 def GetParam(question, number) :
@@ -238,4 +239,45 @@ def StatIterNum(NumIterations) :
             if (NumIterations > 0) and (NumIterations <= IterationsMax) : break
         return NumIterations            
 
-            
+ 
+def gui_input(prompt):
+
+    root = Toplevel()
+    w = 300 # width for the Tk root
+    h = 65 # height for the Tk root
+
+    # get screen width and height
+    ws = root.winfo_screenwidth() # width of the screen
+    hs = root.winfo_screenheight() # height of the screen
+
+    # calculate x and y coordinates for the Tk root window
+    x = (ws/2) - (w/2)
+    y = (hs/2) - (h/2)
+
+    # set the dimensions of the screen 
+    # and where it is placed
+    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
+
+    # this will contain the entered string, and will
+    # still exist after the window is destroyed
+    var = StringVar()
+
+    # create the GUI
+    label = Label(root, text=prompt)
+    entry = Entry(root, textvariable=var)
+    label.pack(side="left", padx=(20, 0), pady=20)
+    entry.pack(side="right", fill="x", padx=(0, 20), pady=20, expand=True)
+    entry.focus()
+
+    # Let the user press the return key to destroy the gui 
+    entry.bind("<Return>", lambda event: root.destroy())
+
+    # this will block until the window is destroyed
+    root.wait_window()
+
+    # after the window has been destroyed, we can't access
+    # the entry widget, but we _can_ access the associated
+    # variable
+    value = var.get()
+    return value           
