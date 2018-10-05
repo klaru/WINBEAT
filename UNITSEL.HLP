@@ -1,0 +1,12 @@
+Metric / Imperial System
+------------------------
+
+BEAT provides the ability to accept input data in the metric system as well as
+in the imperial system. Default is the imperial system. Output will always be
+in the imperial system.
+
+Measurement data entered into the spec library always must be in imperial units.
+Since the program always displays default values when requesting input data,
+this option may also be used to quickly convert such data between the two unit
+systems.
+

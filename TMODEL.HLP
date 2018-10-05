@@ -1,0 +1,19 @@
+Trace Pi-Model Generation
+-------------------------
+
+This program calculates the R, L and C values for the segments of a pi-model
+(ladder network) of a given transmission line.  The number of segments for a
+given length of trace is partly determined by the edge rates to be simulated on
+the line.
+
+Input : Zo - line impedance  (ohms)
+        tpd - propagation dealy  (ns/ft  or  ns/mm)
+        Ro - intrinsic resistance  (mohms/in  or  mohms/mm)
+        l - length of signal trace under consideration  (in  or  mm)
+        tr - rise time of signal  (ns)
+A "rule of thumb" is used to determine the highest relevant frequency content
+of the signal, given it's rise time. An equation that gives the cutoff frequencyof a LC-ladder network is then rearranged to give the required number of seg-
+ments using the previously determined frequency as cutoff frequency.
+The number of segments is output. The user is given the opportunity to confirm
+or modify this value. Thereafter capacitance, inductance and resistance per
+segment are output.

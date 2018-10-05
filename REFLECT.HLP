@@ -1,0 +1,15 @@
+Reflection Analysis
+-------------------
+
+This program calculates the reflection coefficient given the load
+impedance (Zl) and the line impedance (Zo).  
+
+The reflection coefficient (p) output is that for the voltage change. 
+
+The equation used is as follows:
+
+p = (Zl - Zo)/(Zl + Zo)
+
+For example, given the falling edge of a voltage waveform changes -3.0v at
+the source, the voltage change at the load would be -3.0v + (p * -3.0v).  If
+p = -0.33, then the voltage step at the load would be -2.0v.

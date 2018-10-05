@@ -1,0 +1,21 @@
+Distributed Capacitance Analysis
+--------------------------------
+
+Determines the effective impedance (Zeff) and the effective propagation delay
+(teff) of a line given the extra capacitance distributed (Cd) along the
+line, the intrinsic line impedance (Zo) and the intrinsic propagation delay
+(tpd).
+
+Input: Zo -  intrinsic line impedance  (ohms)  
+       tpd - intrinsic propagation delay  (ns/ft  or  ns/mm)
+       Cd -  distributed capacitance  (pF/in  or  pF/mm)
+
+Output is Zeff, teff, Co and Cd.
+
+The equations used are as follows:
+
+Co = tpd / Zo
+
+and 
+
+teff = tpd * sqrt(1 + Cd/Co)    and     Zeff = Zo / sqrt(1 + Cd/Co)

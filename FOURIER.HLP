@@ -1,0 +1,19 @@
+Fourier Analysis
+----------------
+
+This program performs a discrete, complex fourier analysis, thus calculating
+the fourier series coefficients for a given periodic waveform.
+
+Input:  N - number of harmonics the program should evaluate
+        number of points the user wants to enter to describe the waveform
+        T - period of the waveform to be analyzed  (ns)
+        for each point: time  (ns), magnitude of signal
+
+The points entered to describe the waveform need not be equidistant. An
+insufficient number of points (sammpling theorem) may invalidate the results.
+
+Output:  for each harmonic:
+           order of this harmonic
+           magnitude of this harmonic
+           phase of this harmonic
+

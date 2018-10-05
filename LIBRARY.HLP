@@ -1,0 +1,19 @@
+Load Library Parameters
+-----------------------
+
+BEAT can access a database, library.beat, which contains a number of 
+board specifications. The user is shown which specs are available, and gets to 
+select one of these. Then he is shown all available layers for the boards
+represented by this spec and gets to select one of these layers. Ground or 
+power planes can not be selected.
+
+The data associated with the selected layer of the selected board are then
+loaded into the appropriate variables. Now the user can call up any of the otheroptions of the program and the just loaded data will be presented to him as
+default values.
+
+Boards are assumed to be symmetrical. So only the first 50% of the layers are
+entered into the database.
+
+The database can be appended or modified at any time. However, the structure
+(which is described in the user's manual) may not be changed.
+

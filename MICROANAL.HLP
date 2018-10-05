@@ -1,0 +1,19 @@
+MicroStrip Line Analysis
+------------------------
+
+Calculates impedance and propagation delay as well as intrinsic capacitance,
+inductance and resistance (execept for impedance all per unit length) of a traceover one plane given its physical properties. The equations take into account
+that the microstrip is rounded at the edges, rather than assuming a perfect
+rectangle.
+
+Input:  h = trace height  (in  or  mm),       w = trace width  (in  or  mm)
+        t = trace thickness  (in  or  mm),    Er = dielectric constant
+        Solder Mask : none, wet, dry
+
+                        <--- w --->            (AIR)
+                         _________   _
+        ________________|_________|___ <-t _________   trace
+         |                   
+     h ->|                         (DIELECTRIC Er)
+         |                                    
+        ============================================   plane

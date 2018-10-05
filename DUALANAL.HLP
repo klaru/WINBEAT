@@ -1,0 +1,21 @@
+Dual-strip Line Analysis
+------------------------
+
+Calculates impedance and propagation delay as well as intrinsic capacitance,
+inductance and resistance (except for impedance all per unit length) of each of
+two traces between two planes given their physical properties. Certain assump-
+tions are made: both signal traces are identical in physical dimensions, they
+are symmetrical with respect to the middle line between the two planes.
+
+Input:  h = trace height,               w = trace width
+        t = trace thickness,            s = signal plane spacing
+        Er = dielectric constant
+
+        ============================================   plane
+    h -> |              <--- w --->     (DIELECTRIC Er)
+        ___              _________   _
+        ___             |_________|  _ <-t             trace
+    s ->___              _________   _
+        ___             |_________|  _ <-t             trace
+    h -> |
+        ============================================   plane

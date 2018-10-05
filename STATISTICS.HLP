@@ -1,0 +1,21 @@
+Statistical Analysis
+--------------------
+
+This option provides the ability to enter a statistical mode for:
+   - strip line analysis
+   - microstrip line analysis
+   - dual-strip line analysis
+   - embedded microstrip line analysis
+
+One of these analyses can be selected.
+
+A normal distribution of the input parameters is assumed. So the user must
+specify mean and standard deviation for each input parameter as well as the 
+number of iterations to be run.
+
+During each iteration random values are generated for all input parameters. The
+resulting data are then stored and analyzed upon completion of all iterations.
+
+As output the user receives the values for mean and standard deviation for all
+output parameters.
+ 
