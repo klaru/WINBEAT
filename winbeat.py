@@ -52,7 +52,7 @@ from loadparameters import LoadParameters
 from beatfourier import FourierValues, FourierAnal
 
 #****************************************************************************)
-def Help():
+def Help(text):
 #****************************************************************************)
 
 #var
@@ -65,7 +65,8 @@ def Help():
 	
 # Reset selected help file and display the file
     global Ende
-    while Ende == False: # begin
+    while True: # begin
+        text.delete('1.0', END)
         Header = 'Electrical Analysis - Help Menu - BEAT (Rev 4.0)'
         OptArray[1] = 'Return to Main Menu'
         OptArray[2] = 'Reflection Analysis'
@@ -80,10 +81,12 @@ def Help():
         OptArray[11] = 'Statistical Analysis'
         OptArray[12] = 'Metric / Imperial System'
         OptArray[13] = 'Load Library Parameters'
-        SelOpt = menu (13, Header, OptArray)
-		
+        menu (13, Header, OptArray, text)
+        SelOpt = gui_input('Enter Selection')
+        text.delete('1.0', END)
         if SelOpt == '1':
             Ende = True
+            break
         elif SelOpt == '2':
             helpfile = open('reflect.hlp')		# reflectcoef
         elif SelOpt == '3':
@@ -110,13 +113,13 @@ def Help():
             helpfile = open('library.hlp')		# LoadParameters
 	    	
         if Ende != True:
+            text.delete('1.0', END)
             while True:
                 line = helpfile.readline()
                 if not line: break
-                print(line)
-
-            Again = input("Hit <Return> to return to Help Menu: ")
-            helpfile.close()
+                text.insert(INSERT, line)
+        helpfile.close()
+        gui_input('Hit ENTER  to return to Help Menu ')
 # end help
     
 if __name__ == '__main__':
@@ -194,7 +197,7 @@ if __name__ == '__main__':
     NumIterations = IterationsMax  # Default for Iterations for Stat. Anal.
 		
 # Setup the main menu for BEAT and go to selected routine
-    while Ende == False : # begin   
+    while True : # begin   
         Header = 'Electrical Analysis - Main Menu - BEAT (Rev 4.0)'
         OptArray[1] = 'Exit'
         OptArray[2] = 'Reflection Analysis'
@@ -245,6 +248,8 @@ if __name__ == '__main__':
         elif SelOpt == "13":
             LoadParameters()
         elif SelOpt == '14':
-            Help()
+                text.delete('1.0', END)
+                Help(text)
+                text.delete('1.0', END)
         
     winbeat.mainloop()
