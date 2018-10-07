@@ -13,7 +13,7 @@ def Reflectcoef(text) :
 
     global LineImp, LoadImp
     while True :
-        text.delete('1.0', END) 
+        clear_textwindow(text) 
         text.insert('1.0', 'This program calculates the reflection coefficient')
         text.insert(INSERT,'\n')
         text.insert(INSERT, '-----------------------------------------------------------')
@@ -24,7 +24,8 @@ def Reflectcoef(text) :
         text.insert(INSERT, 'Reflection coeffiecient = ')		
         text.insert(INSERT, '%1.2f' %(ReflectionCoef))     
         text.pack()
-        Again = gui_input('Another reflection calculation (y/n)?')     
+        Again = gui_input('Another reflection calculation (y/n)?')  
+        clear_textwindow(text)      
         return Again
      #end while
 #end Reflectcoef

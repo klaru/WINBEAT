@@ -192,8 +192,7 @@ def menu(NumOpt, Header, OptArray, text):
 #  WidthMargin : integer;
 #  Option : opt;
 
-    Temp = 0
-#    os.system('cls')     Clear Screen 
+    Temp = 0 
     for Temp in range(1, (ScreenWidth - 48)//2 + 6) :
         text.insert(INSERT, ' ')
     text.insert(INSERT, 'Board Electrical Analysis Tool - BEAT (Rev 4.0)')   
@@ -221,7 +220,6 @@ def menu(NumOpt, Header, OptArray, text):
     for Temp in range(1, WidthMargin + 1) :
         text.insert(INSERT, ' ')
     text.pack()
-#   os.system('cls')
 
 #************************************************************************
 def StatIterNum(NumIterations) :
@@ -281,3 +279,7 @@ def gui_input(prompt):
     # variable
     value = var.get()
     return value           
+
+def clear_textwindow(text):
+    text.delete('1.0', END)
+    text.pack()

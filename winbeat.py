@@ -66,7 +66,7 @@ def Help(text):
 # Reset selected help file and display the file
     global Ende
     while True: # begin
-        text.delete('1.0', END)
+        clear_textwindow(text)
         Header = 'Electrical Analysis - Help Menu - BEAT (Rev 4.0)'
         OptArray[1] = 'Return to Main Menu'
         OptArray[2] = 'Reflection Analysis'
@@ -83,7 +83,7 @@ def Help(text):
         OptArray[13] = 'Load Library Parameters'
         menu (13, Header, OptArray, text)
         SelOpt = gui_input('Enter Selection')
-        text.delete('1.0', END)
+        clear_textwindow(text)
         if SelOpt == '1':
             Ende = True
             break
@@ -113,7 +113,7 @@ def Help(text):
             helpfile = open('library.hlp')		# LoadParameters
 	    	
         if Ende != True:
-            text.delete('1.0', END)
+            clear_textwindow(text)
             while True:
                 line = helpfile.readline()
                 if not line: break
@@ -221,9 +221,7 @@ if __name__ == '__main__':
 	        winbeat.destroy()
         elif SelOpt == '2':
             while True :
-                text.delete('1.0', END)
                 Again = Reflectcoef(text)
-                text.delete('1.0', END)
                 if (Again =='n') or (Again =='N') : break
         elif SelOpt == '3':
 	        StripLineAnal()
@@ -248,8 +246,6 @@ if __name__ == '__main__':
         elif SelOpt == "13":
             LoadParameters()
         elif SelOpt == '14':
-                text.delete('1.0', END)
                 Help(text)
-                text.delete('1.0', END)
         
     winbeat.mainloop()
