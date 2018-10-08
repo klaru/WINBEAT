@@ -242,10 +242,10 @@ if __name__ == '__main__':
         elif SelOpt == '11':				
             StatAnal()
         elif SelOpt == '12':			
-            SetUnit()
+            SetUnit(text)
         elif SelOpt == "13":
             LoadParameters()
         elif SelOpt == '14':
-                Help(text)
+             Help(text)
         
     winbeat.mainloop()

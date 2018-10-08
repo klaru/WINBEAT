@@ -1,9 +1,11 @@
 #! python3
 import os, sys
 from beatinc import *
+from beatio import clear_textwindow, gui_input
+from tkinter import *
 
 #************************************************************************
-def SetUnit():
+def SetUnit(text):
 #                                                                        
 #  This routine enables the user to select whether he wants to enter     
 #  his input data in the metric or in the imperial system of measurement 
@@ -15,31 +17,36 @@ def SetUnit():
 #   UnitChar, temp : char
 
     global base, UnitSys
-    os.system('cls')
-    print('Set the Unit System for your input data')
-    print('---------------------------------------')
-    print('\n')
-    print('You may now select whether you want to input your data in ')
-    print('the Metric or in the Imperial system.')
-    print('\n')
-    print('Please keep in mind that the data in the library are in ')
-    print('the Imperial system')
-    print('\n')
-    print('Currently selected: ',base[UnitSys])
-    print('\n')
-    print('\n')
+    clear_textwindow(text)
+    text.insert('1.0', 'Set the Unit System for your input data')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, '---------------------------------------')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, 'You may now select whether you want to input your data in ')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, 'the Metric or in the Imperial system.')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, 'keep in mind that the data in the library are in ')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, 'the Imperial system')
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, 'Currently selected: ')
+    text.insert(INSERT, base[UnitSys])
+    text.insert(INSERT, '\n')
+    text.insert(INSERT, '\n')
     if UnitSys == 1 :
         UnitChar = 'm'
     elif UnitSys == 2 :
         UnitChar = 'i'
-    print('Metric or Imperial system?  (m or i)  [',UnitChar,']')
+#   text.insert(INSERT, 'Metric or Imperial system?  (m or i)  [',UnitChar,']')
 
     while True :
-        temp = msvcrt.getch()
-        if (temp == b'm') or (temp == b'i') or (temp == b'\r') : break
-    if (temp != b'\r') : UnitChar = temp
+#        temp = msvcrt.getch()
+        temp = gui_input('Metric or Imperial system?  (m or i)')
+        if (temp == 'm') or (temp == 'i') or (temp == '\r') : break
+    if (temp != '\r') : UnitChar = temp
     if UnitChar == 'm' :
         UnitSys = 1
     elif  UnitChar == 'i' : 
          UnitSys = 2
-
+    clear_textwindow(text)
