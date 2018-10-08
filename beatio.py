@@ -266,7 +266,7 @@ def gui_input(prompt):
     entry = Entry(root, textvariable=var)
     label.pack(side="left", padx=(20, 0), pady=20)
     entry.pack(side="right", fill="x", padx=(0, 20), pady=20, expand=True)
-    entry.focus()
+    entry.focus_force()
 
     # Let the user press the return key to destroy the gui 
     entry.bind("<Return>", lambda event: root.destroy())
