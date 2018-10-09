@@ -22,8 +22,7 @@ from tkinter import *
 def GetParam(question, number) :
 #****************************************************************************
    
-   print(question,'[%3.4f] ' %(number), end='')			  
-   string = input()
+   string = gui_input(question, number)			  
    if string != '' :
        number = float(string)
    return number
@@ -33,8 +32,7 @@ def GetParam(question, number) :
 def GetIParam (question, number) :
 #****************************************************************************
 
-   print(question,'[%6i] ' %(number), end='')				
-   string = input()
+   string = gui_input(question, number)				
    if string != '' :
        number = int(string)
    return number
@@ -144,37 +142,69 @@ def TraceParamOut() :
 
 
 #****************************************************************************
-def LineAnalOut(EffImped, EffProp, IntCap, IntInduct, IntRes) :
+def LineAnalOut(text, EffImped, EffProp, IntCap, IntInduct, IntRes) :
 #****************************************************************************
 
-   print ('\n')
-   print ('Line analysis:')
-   print ('--------------')
-   print ('Impedance (ohms):                = %3.1f' %(EffImped)) 
-   print ('Propagation Delay (ns/ft):       = %2.2f' %(EffProp))   
-   print ('Intrinsic Capacitance (pf/in):   = %2.2f' %(IntCap))    
-   print ('Intrinsic Inductance (nH/in):    = %2.2f' %(IntInduct))
-   print ('Intrinsic Resistance (mohms/in)  = %2.2f' %(IntRes)) 
-   print ('\n')
+   text.insert(END, '\n')
+   text.insert(INSERT, 'Line analysis:')
+   text.insert(END, '\n')
+   text.insert(INSERT, '--------------')
+   text.insert(END, '\n')
+   text.insert(INSERT, 'Impedance (ohms):                = ')
+   text.insert(INSERT, '%3.1f' %(EffImped)) 
+   text.insert(END, '\n')
+   text.insert(INSERT, 'Propagation Delay (ns/ft):       = ')
+   text.insert(INSERT, '%2.2f' %(EffProp))   
+   text.insert(END, '\n')   
+   text.insert(INSERT, 'Intrinsic Capacitance (pf/in):   = ')
+   text.insert(INSERT, '%2.2f' %(IntCap))   
+   text.insert(END, '\n')  
+   text.insert(INSERT, 'Intrinsic Inductance (nH/in):    = ')
+   text.insert(INSERT, '%2.2f' %(IntInduct))
+   text.insert(END, '\n')   
+   text.insert(INSERT, 'Intrinsic Resistance (mohms/in)  = ')
+   text.insert(INSERT, '%2.2f' %(IntRes)) 
+   text.insert(END, '\n')
 #end LineAnalOut
 
 
 #**************************************************************************
-def LineAnalStatOut(EffImpedMean,EffImpedSigma,EffPropMean,EffPropSigma,IntCapMean,IntCapSigma,IntInductMean,IntInductSigma,IntResistMean,IntResistSigma) :
+def LineAnalStatOut(text,EffImpedMean,EffImpedSigma,EffPropMean,EffPropSigma,IntCapMean,IntCapSigma,IntInductMean,IntInductSigma,IntResistMean,IntResistSigma) :
 #
 #    output of the data which resulted from statistical analysis. This is
 #    basically a modified version of LineAnalOut.                          
 #**************************************************************************
 
-    print ('\n')
-    print ('Line analysis:')
-    print ('--------------')
-    print ('Impedance (ohms):               mean = %3.1f' %(EffImpedMean), '   sigma = %3.3f' %(EffImpedSigma))  
-    print ('Propagation Delay (ns/ft):      mean = %2.2f' %(EffPropMean), '   sigma = %2.4f' %(EffPropSigma))     
-    print ('Intrinsic Capacitance (pf/in):  mean = %2.2f' %(IntCapMean), '   sigma = %2.4f' %(IntCapSigma))       
-    print ('Intrinsic Inductance (nH/in):   mean = %2.2f' %(IntInductMean), '   sigma = %2.4f' %(IntInductSigma))
-    print ('Intrinsic Resistance (mohms/in) mean = %2.2f' %(IntResistMean), '   sigma = %2.4f' %(IntResistSigma)) 
-    print ('\n')
+    text.insert(END, '\n')
+    text.insert(INSERT, 'Line analysis:')
+    text.insert(END, '\n')
+    text.insert(INSERT, '--------------')
+    text.insert(END, '\n')
+    text.insert(INSERT, 'Impedance (ohms):               mean = ')
+    text.insert(INSERT, '%3.1f' %(EffImpedMean))
+    text.insert(INSERT, '   sigma = ')
+    text.insert(INSERT, '%3.3f' %(EffImpedSigma))  
+    text.insert(END, '\n')       
+    text.insert(INSERT, 'Propagation Delay (ns/ft):      mean = ')
+    text.insert(INSERT, '%2.2f' %(EffPropMean))
+    text.insert(INSERT, '   sigma = ')
+    text.insert(INSERT, '%2.4f' %(EffPropSigma)) 
+    text.insert(END, '\n')    
+    text.insert(INSERT, 'Intrinsic Capacitance (pf/in):  mean = ')
+    text.insert(INSERT, '%2.2f' %(IntCapMean))
+    text.insert(INSERT, '   sigma = ') 
+    text.insert(INSERT, '%2.4f' %(IntCapSigma))  
+    text.insert(END, '\n')    
+    text.insert(INSERT, 'Intrinsic Inductance (nH/in):   mean = ')
+    text.insert(INSERT, '%2.2f' %(IntInductMean))
+    text.insert(INSERT, '   sigma = ')   
+    text.insert(INSERT, '%2.4f' %(IntInductSigma))
+    text.insert(END, '\n')    
+    text.insert(INSERT, 'Intrinsic Resistance (mohms/in) mean = ')
+    text.insert(INSERT, '%2.2f' %(IntResistMean))
+    text.insert(INSERT, '   sigma = ')
+    text.insert(INSERT, '%2.4f' %(IntResistSigma)) 
+    text.insert(END, '\n')
 # end LineAnalStatOut
 
 
@@ -238,7 +268,7 @@ def StatIterNum(NumIterations) :
         return NumIterations            
 
  
-def gui_input(prompt):
+def gui_input(prompt, number):
 
     root = Toplevel()
     w = 300 # width for the Tk root
@@ -262,7 +292,10 @@ def gui_input(prompt):
     var = StringVar()
 
     # create the GUI
-    label = Label(root, text=prompt)
+    if number != 0:
+        label = Label(root, text=prompt + str(number))
+    else:
+        label = Label(root, text=prompt)
     entry = Entry(root, textvariable=var)
     label.pack(side="left", padx=(20, 0), pady=20)
     entry.pack(side="right", fill="x", padx=(0, 20), pady=20, expand=True)

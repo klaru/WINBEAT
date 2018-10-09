@@ -82,7 +82,7 @@ def Help(text):
         OptArray[12] = 'Metric / Imperial System'
         OptArray[13] = 'Load Library Parameters'
         menu (13, Header, OptArray, text)
-        SelOpt = gui_input('Enter Selection')
+        SelOpt = gui_input('Enter Selection', 0)
         clear_textwindow(text)
         if SelOpt == '1':
             Ende = True
@@ -119,7 +119,7 @@ def Help(text):
                 if not line: break
                 text.insert(INSERT, line)
         helpfile.close()
-        gui_input('Hit ENTER  to return to Help Menu ')
+        gui_input('Hit ENTER  to return to Help Menu ', 0)
 # end help
     
 if __name__ == '__main__':
@@ -215,7 +215,7 @@ if __name__ == '__main__':
         OptArray[14] = 'Help'
         menu (14, Header, OptArray, text)
 
-        SelOpt = gui_input('Enter Selection')
+        SelOpt = gui_input('Enter Selection', 0)
         
         if SelOpt == '1':
 	        winbeat.destroy()
@@ -224,7 +224,8 @@ if __name__ == '__main__':
                 Again = Reflectcoef(text)
                 if (Again =='n') or (Again =='N') : break
         elif SelOpt == '3':
-	        StripLineAnal()
+            StripLineAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '4':
             MicroStripAnal()									
         elif SelOpt == '5':

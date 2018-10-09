@@ -3,9 +3,10 @@ import os, sys
 from beatinc import *
 from beatio import *
 from beatcalc import *
+from tkinter import *
 
 #****************************************************************************
-def StripLineAnal() :
+def StripLineAnal(text) :
 #                                                                          
 # Determines the impedance and propagation constant of a stripline         
 # using the standard equation found in Motorola's MECL Handbook or a       
@@ -22,10 +23,11 @@ def StripLineAnal() :
 	
     Again = True
     while Again == True :
-        os.system('cls')
-        print('Stripline analysis')
-        print('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'Stripline analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         TraceThick, TraceWidth, TraceHeight, DiConst = GetTraceParam()
         PlaneSpace = 2*TraceHeight + TraceThick
         ImpFactor1 = 60/math.sqrt(DiConst)
@@ -35,14 +37,15 @@ def StripLineAnal() :
         Cap = IntProp/IntImped * 1e3/12
         Induct = IntProp * IntImped/12
         Resist = ResistCopper/(TraceThick * TraceWidth)*1000
-        LineAnalOut(IntImped, IntProp, Cap, Induct, Resist)
-        Again = GetResponse('Another stripline analysis (y/n)?','n')
+        LineAnalOut(text, IntImped, IntProp, Cap, Induct, Resist)
+        input = gui_input('Another stripline analysis (y/n)?', 0)
+        if (input == 'n') or (input =='N') : Again = False
         if (Again == False) : break
      #end while
 #end StripLineAnal
 
 #************************************************************************
-def StripLineStatAnal() :
+def StripLineStatAnal(text) :
 #                                                                          
 # Determines the impedance and propagation #constant of a stripline         
 # using the standard equation found in Motorola's MECL Handbook or a       
@@ -66,18 +69,19 @@ def StripLineStatAnal() :
     answer = ''
     while Again == True :
     #begin
-        os.system('cls')
-        print('S t a t i s t i c a l    Strip Line Analysis')
-        print('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'S t a t i s t i c a l    Strip Line Analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         NumIterations = StatIterNum(NumIterations)
             
         StatData = [[0 for x in range(NumIterations+2)] for y in range(6)] 
         
         TraceThickMean, TraceThickSigma, TraceWidthMean, TraceWidthSigma,  \
         TraceHeightMean, TraceHeightSigma, DiConstMean, DiConstSigma = GetTraceStatParam()    
-        print('\n')
-        print('Working')
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Working')
 
         for i in range(1, NumIterations + 1) :                          #begin for  Main Loop 
             TraceThickVal = RNDNormal(TraceThickMean,TraceThickSigma)   #Get 
@@ -136,10 +140,11 @@ def StripLineStatAnal() :
         CapSigma = math.sqrt(CapSigma/ (NumIterations-1))
         InductSigma = math.sqrt(InductSigma / (NumIterations-1))
         ResistSigma = math.sqrt(ResistSigma / (NumIterations-1))
-        LineAnalStatOut(IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
+        LineAnalStatOut(text, IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
           CapMean,CapSigma, InductMean,InductSigma, ResistMean,ResistSigma)
 
-        Again = GetResponse('Another statistical stripline analysis (y/n)?','n')
+        input = gui_input('Another statistical stripline analysis (y/n)?', 0)
+        if (input == 'n') or (input =='N') : Again = False        
         if (Again == False) : break      
     #end while
 #end  StripLineStatAnal 

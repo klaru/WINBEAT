@@ -38,11 +38,13 @@ def SetUnit(text):
         UnitChar = 'm'
     elif UnitSys == 2 :
         UnitChar = 'i'
-#   text.insert(INSERT, 'Metric or Imperial system?  (m or i)  [',UnitChar,']')
+    text.insert(INSERT, 'Metric or Imperial system?  (m or i)  [')
+    text.insert(INSERT, UnitChar)
+    text.insert(INSERT, ']')
 
     while True :
 #        temp = msvcrt.getch()
-        temp = gui_input('Metric or Imperial system?  (m or i)')
+        temp = gui_input('Metric or Imperial system?  (m or i)', 0)
         if (temp == 'm') or (temp == 'i') or (temp == '\r') : break
     if (temp != '\r') : UnitChar = temp
     if UnitChar == 'm' :

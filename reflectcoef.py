@@ -24,7 +24,7 @@ def Reflectcoef(text) :
         text.insert(INSERT, 'Reflection coeffiecient = ')		
         text.insert(INSERT, '%1.2f' %(ReflectionCoef))     
         text.pack()
-        Again = gui_input('Another reflection calculation (y/n)?')  
+        Again = gui_input('Another reflection calculation (y/n)?', 0)  
         clear_textwindow(text)      
         return Again
      #end while
