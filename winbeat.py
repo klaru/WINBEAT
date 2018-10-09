@@ -244,7 +244,8 @@ if __name__ == '__main__':
         elif SelOpt == '12':			
             SetUnit(text)
         elif SelOpt == "13":
-            LoadParameters()
+            LoadParameters(text)
+            clear_textwindow(text)
         elif SelOpt == '14':
              Help(text)
         

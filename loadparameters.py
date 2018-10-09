@@ -2,9 +2,11 @@
 import os, sys, math
 from beatinc import *
 from beatio import *
+from tkinter import *
+
 
 #***************************************************************************
-def LoadParameters() :
+def LoadParameters(text) :
 #   This procedures accesses the database "library.bea".
 #   The database contains specifications of multilayer boards and may
 #   be changed or appended at any time.
@@ -50,10 +52,12 @@ def LoadParameters() :
     SpecDescription = [' '] * SpecMax
     LayerType = [' '] * LayerTypeMax
     LoadOK = True
-    os.system('cls')
-    print('Load Library Parameters:');
-    print( 'Listing of currently available Specifications');
-    print('--------------------------------------------------------------');
+    clear_textwindow(text)
+    text.insert('1.0', 'Load Library Parameters:')
+    text.insert( INSERT, 'Listing of currently available Specifications')
+    text.insert(END, '\n')
+    text.insert(INSERT, '---------------------------------------------------------------------')
+    text.insert(END, '\n')
 
     lib = open('library.bea', 'r')
     line = lib.readline()  # number of available specs
@@ -62,45 +66,54 @@ def LoadParameters() :
 
     if NumSpecs > SpecMax :	   # too many specs in database
         LoadOK = False
-        print ('\n')
-        print ('Database contains %3i' %(NumSpecs),' specs.')				
-        print ('Currently BEAT can handle only %3i' %(SpecMax),' specs, however')
-        print ('Please change the parameter "SpecMax" and recompile BEAT')
-        print ('\n')
-        print ('Hit RETURN to continue')
-        dummy = input()
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Database contains ')
+        text.insert(INSERT, NumSpecs)
+        text.insert(INSERT, ' specs.')				
+        text.insert(INSERT, 'Currently BEAT can handle only ')
+        text.insert(INSERT, SpecMax)
+        text.insert(INSERT,' specs, however')
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Please change the parameter "SpecMax" and recompile BEAT')
+        text.insert(END, '\n')
+        gui_input('Hit RETURN to continue')
     #end if
 
     for i in range(1, NumSpecs + 1) :  			        # read Doc-number and -description for 
         SpecDocNum[i] = ' ' 
         SpecDescription[i] = ' '
         SpecDocNum[i] = lib.readline()
-        SpecDescription[i] = lib.readline()   				            
-        print (i,' : ',SpecDocNum[i], end='')  	    	
-        print ('     ',SpecDescription[i], end='')
+        SpecDescription[i] = lib.readline()
+        text.insert(END, '\n')        
+        text.insert(INSERT, i)
+        text.insert(INSERT, ' : ')
+        text.insert(INSERT, SpecDocNum[i])  	    	
+        text.insert(INSERT, '     ')
+        text.insert(INSERT, SpecDescription[i])
     #end for
 
     SpecSelect = 1   							        # Get user selection 
-    print ('\n')
+    text.insert(END, '\n')
     while True:
         InRange = True
-        SpecSelect = GetIParam ('Select by entering a number : ', SpecSelect)
+        SpecSelect = int(gui_input('Select by entering a number : '))
         if ((SpecSelect < 1) 
 		 or (SpecSelect > NumSpecs)) :
             InRange = False
-            print ('Incorrect Selection!   Try Again')
+            text.insert(INSERT, 'Incorrect Selection!   Try Again')
         if InRange == True : break
 
 #           Second part of this procedure reads and displays the available
 #           layers for the selected spec and gets a user selection.
 #           Only first 50% of layers are displayed since boards are
 #           assumed to be symmectrical.                                    
-    os.system('cls')
-    print ('Load Library Parameters:')
-    print (SpecDescription[SpecSelect])
-    print ('Listing of available layers')
-    print ('--------------------------------------------------------------')
-
+    clear_textwindow(text)
+    text.insert('1.0', 'Load Library Parameters:')
+    text.insert(INSERT, SpecDescription[SpecSelect])
+    text.insert(INSERT, 'Listing of available layers')
+    text.insert(END, '\n')
+    text.insert(INSERT, '--------------------------------------------------------------')
+    text.insert(END, '\n')
     lib=open('library.bea', 'r')
     dummy = lib.readline()                     		 # skip thru listing of available specs 
     dummy = lib.readline()
@@ -116,23 +129,27 @@ def LoadParameters() :
         NumLayers = int(line)
         if NumLayers/2 != math.trunc(NumLayers/2) :  # only even number allowed
             LoadOK = False
-            print ('\n')
-            print ('Database shows %2i' %(NumLayers), ' layers for spec. # %2.i' %(i), '.')
-            print ('This is incorrect. Only even numbers are allowed.')
-            print ('The boards are assumed to be symmetrical.')
-            print ('Please check the manual and correct the database')
-            print ('\n')
-            print ('Hit RETURN to continue')
-            dummy = input()
+            text.insert(END, '\n')
+            text.insert(INSERT, 'Database shows ')
+            text.insert(INSERT, NumLayers)
+            text.insert(INSERT, ' layers for spec. #')
+            text.insert(INSERT, i)
+            text.insert(INSERT, '.')
+            text.insert(INSERT, 'This is incorrect. Only even numbers are allowed.')
+            text.insert(INSERT, 'The boards are assumed to be symmetrical.')
+            text.insert(INSERT, 'Please check the manual and correct the database')
+            text.insert(END, '\n')
+            gui_input('Hit RETURN to continue')
+
         #end if
         dummy = lib.readline()  			                    # number of this layer 
         for j in range(1, math.trunc(NumLayers/2) + 1) : 	    # type of this layer
             LayerNum = lib.readline()
             LayerType[j] = lib.readline()
-            LayerTypeOK = False  								 # make sure it is permitted layer type 
+            LayerTypeOK = False  								# make sure it is permitted layer type 
 # skip next data depending on	   
             if ((LayerType[j] == 'strip\n') 
-			 or (LayerType[j] == 'embedmicro\n')) :  				 # type of layer
+			 or (LayerType[j] == 'embedmicro\n')) :  			# type of layer
                 for l in range(1, 4 + 1) :
                     dummy = lib.readline()
                 LayerTypeOK = True
@@ -150,18 +167,19 @@ def LoadParameters() :
 
             if LayerTypeOK == False :
                 LoadOK = True
-                print ('\n')
-                print (LayerType[j])
-                print ('This is not a recognized layer type.')
-                print ('Please check the manual and correct the database')
-                print ('\n')
-                print ('Hit RETURN to continue');
-                dummy = input()
+                text.insert(END, '\n')
+                text.insert(INSERT, LayerType[j])
+                text.insert(INSERT, 'This is not a recognized layer type.')
+                text.insert(INSERT, 'Please check the manual and correct the database')
+                text.insert(END, '\n')
+                gui_input('Hit RETURN to continue')
             #end if
 
             dummy = lib.readline()
             if i == SpecSelect :
-	            print (j,' : ',LayerType[j], end='')			#:2
+                text.insert(INSERT, j)
+                text.insert(INSERT, ' : ')
+                text.insert(INSERT, LayerType[j])			#:2
         #end for NumLayers
     #end for SpecSelect
 
@@ -174,21 +192,22 @@ def LoadParameters() :
             #  ted layer will not be overwritten, all variables involved in
             #  this probably will be clobbered.                          
     LayerSelect = 1
-    print ('\n')
+    text.insert(END, '\n')
     while True :
         InRange = True
-        LayerSelect = GetIParam ('Select by entering a number : ', LayerSelect)
+        LayerSelect = int(gui_input('Select by entering a number : '))
         if ((LayerSelect < 1) 
 		 or (LayerSelect > NumLayers/2)) :
             InRange = False
-            print ('Incorrect Selection!   Try Again')
+            text.insert(INSERT, 'Incorrect Selection!   Try Again')
         #end if
         if ((LayerType[LayerSelect] == 'gnd\n') 
 		 or (LayerType[LayerSelect] == 'pwr\n') 
 		 or (LayerType[LayerSelect] == 'gnd/pwr\n')) :
             InRange = False
-            print (LayerType[LayerSelect],':')
-            print ('This layer cannot be selected for analysis!    Try Again')
+            text.insert(INSERT, LayerType[LayerSelect])
+            text.insert(INSERT, ':')
+            text.insert(INSERT, 'This layer cannot be selected for analysis!    Try Again')
         #end if		   
         if InRange == True : break
     #end while
@@ -238,9 +257,7 @@ def LoadParameters() :
         #end for
     #end for
     if LoadOK == True :
-        print('\n')
-        print('Parameter have been loaded into variables.')
-        print('\n')
-        print('Hit RETURN to continue.')
-        dummy = input()
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Parameter have been loaded into variables.')
+        gui_input('Hit RETURN to continue.')
 
