@@ -22,7 +22,7 @@ from tkinter import *
 def GetParam(question, number) :
 #****************************************************************************
    
-   string = gui_input(question, number)			  
+   string = gui_input(500, question, number)			  
    if string != '' :
        number = float(string)
    return number
@@ -32,7 +32,7 @@ def GetParam(question, number) :
 def GetIParam (question, number) :
 #****************************************************************************
 
-   string = gui_input(question, number)				
+   string = gui_input(300, question, number)				
    if string != '' :
        number = int(string)
    return number
@@ -268,10 +268,10 @@ def StatIterNum(NumIterations) :
         return NumIterations            
 
  
-def gui_input(prompt, number):
+def gui_input(width, prompt, number):
 
     root = Toplevel()
-    w = 300 # width for the Tk root
+    w = width # width for the Tk root
     h = 65 # height for the Tk root
 
     # get screen width and height

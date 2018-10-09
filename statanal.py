@@ -8,12 +8,13 @@ from dualstriplineanal import DualStripStatAnal
 from embedmicrostriplineanal import EmbedMicroStripStatAnal
 
 #************************************************************************
-def StatAnal() :
+def StatAnal(text) :
 #************************************************************************
 
 #var Ende : boolean
 
     global Ende, SelOpt
+    clear_textwindow(text)
     while Ende == False :
         Header = 'Statistical Analysis'
         OptArray[1] = 'Exit to Main Menue'
@@ -21,11 +22,13 @@ def StatAnal() :
         OptArray[3] = 'Microstrip Line Analysis'
         OptArray[4] = 'Dual-Strip Line Analysis' 
         OptArray[5] = 'Embedded Strip Line Analysis' 
-        SelOpt = menu(5,Header,OptArray)
+        menu(5,Header,OptArray, text)
+        SelOpt = gui_input(200, 'Enter Selection', 0)
         if SelOpt == '1' :
             Ende = True
         elif SelOpt == '2' :
-            StripLineStatAnal()
+            StripLineStatAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '3' :
             MicroStripStatAnal()
         elif SelOpt == '4' :

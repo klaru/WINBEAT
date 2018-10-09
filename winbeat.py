@@ -82,7 +82,7 @@ def Help(text):
         OptArray[12] = 'Metric / Imperial System'
         OptArray[13] = 'Load Library Parameters'
         menu (13, Header, OptArray, text)
-        SelOpt = gui_input('Enter Selection', 0)
+        SelOpt = gui_input(200, 'Enter Selection', 0)
         clear_textwindow(text)
         if SelOpt == '1':
             Ende = True
@@ -119,7 +119,7 @@ def Help(text):
                 if not line: break
                 text.insert(INSERT, line)
         helpfile.close()
-        gui_input('Hit ENTER  to return to Help Menu ', 0)
+        gui_input(300, 'Hit ENTER  to return to Help Menu ', 0)
 # end help
     
 if __name__ == '__main__':
@@ -215,7 +215,7 @@ if __name__ == '__main__':
         OptArray[14] = 'Help'
         menu (14, Header, OptArray, text)
 
-        SelOpt = gui_input('Enter Selection', 0)
+        SelOpt = gui_input(200, 'Enter Selection', 0)
         
         if SelOpt == '1':
 	        winbeat.destroy()
@@ -241,7 +241,8 @@ if __name__ == '__main__':
         elif SelOpt == '10':					
             FourierAnal()
         elif SelOpt == '11':				
-            StatAnal()
+            StatAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '12':			
             SetUnit(text)
         elif SelOpt == "13":

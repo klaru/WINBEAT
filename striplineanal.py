@@ -38,7 +38,7 @@ def StripLineAnal(text) :
         Induct = IntProp * IntImped/12
         Resist = ResistCopper/(TraceThick * TraceWidth)*1000
         LineAnalOut(text, IntImped, IntProp, Cap, Induct, Resist)
-        input = gui_input('Another stripline analysis (y/n)?', 0)
+        input = gui_input(300, 'Another stripline analysis (y/n)?', 0)
         if (input == 'n') or (input =='N') : Again = False
         if (Again == False) : break
      #end while
@@ -143,7 +143,7 @@ def StripLineStatAnal(text) :
         LineAnalStatOut(text, IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
           CapMean,CapSigma, InductMean,InductSigma, ResistMean,ResistSigma)
 
-        input = gui_input('Another statistical stripline analysis (y/n)?', 0)
+        input = gui_input(300, 'Another statistical stripline analysis (y/n)?', 0)
         if (input == 'n') or (input =='N') : Again = False        
         if (Again == False) : break      
     #end while
