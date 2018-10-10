@@ -3,9 +3,10 @@ import os, sys
 from beatinc import *
 from beatio import *
 from beatcalc import *
+from tkinter import *
 
 #**************************************************************************
-def EmbeddedMicroStripAnal():
+def EmbeddedMicroStripAnal(text):
 #                                                                          
 # Calculates the line impedance of an embedded microstrip trace by calculating
 # first the impedance of  the microstripline case and then adjusting for the
@@ -23,12 +24,13 @@ def EmbeddedMicroStripAnal():
     global EmbedHeight
     Again = True
     while Again == True :
-        os.system('cls')
-        print('Embedded micro-stripline analysis')
-        print('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'Embedded micro-stripline analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         TraceThick, TraceWidth, TraceHeight, DiConst = GetTraceParam()   
-        EmbedHeight = GetParam('What is the dielectrical height above the bottom of the trace? ',1, EmbedHeight)
+        EmbedHeight = GetParam('What is the dielectrical height above the bottom of the trace? ', EmbedHeight)
         EffDiConst = DiConst
         LowCap, UpCap, FringeCap = LineCap(TraceThick, TraceWidth, TraceHeight, DiConst, EffDiConst)
         IntProp = PropConst(LowCap, UpCap, UpCap, FringeCap, FringeCap, DiConst, EffDiConst)
@@ -41,13 +43,14 @@ def EmbeddedMicroStripAnal():
         Cap = (2*(UpCap + FringeCap) + LowCap)/12
         Induct = IntPropEmbed * IntImpedEmbed/12
         Resist = ResistCopper/(TraceThick * TraceWidth)*1000
-        LineAnalOut(IntImpedEmbed, IntPropEmbed, Cap, Induct, Resist)
-        Again = GetResponse('Another micro-stripline analysis (y/n)?', 'n')
+        LineAnalOut(text, IntImpedEmbed, IntPropEmbed, Cap, Induct, Resist)
+        input = gui_input(400, 'Another micro-stripline analysis (y/n)?', 0)
+        if (input == 'n') or (input =='N') : Again = False       
         if (Again == False) : break
 
         
 #************************************************************************
-def EmbedMicroStripStatAnal():
+def EmbedMicroStripStatAnal(text):
 #                                                                          
 #  Calculates the line impedance of an embedded microstrip trace by calculating
 #  first the impedance of  the microstripline case and then adjusting for the
@@ -69,10 +72,11 @@ def EmbedMicroStripStatAnal():
     global TraceThick, TraceWidth, TraceHeight, DiConst, EffDiConst, NumIterations, IterationsMax, ResistCopper, EmbedHeight, EmbedHeightSigma
     Again = True
     while Again == True :
-        os.system('cls')
-        print ('S t a t i s t i c a l    Embedded microstripline Analysis')
-        print ('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'S t a t i s t i c a l    Embedded microstripline Analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         NumIterations = StatIterNum(NumIterations)
             
         StatData = [[0 for x in range(NumIterations+2)] for y in range(6)]      
@@ -80,8 +84,8 @@ def EmbedMicroStripStatAnal():
         TraceThickMean, TraceThickSigma, TraceWidthMean, TraceWidthSigma,  \
         TraceHeightMean, TraceHeightSigma, DiConstMean, DiConstSigma = GetTraceStatParam()
         EmbedHeightMean = EmbedHeight  # Get default value 
-        EmbedHeightMean = GetParam('What is the dielectrical height above the bottom of the trace? ',1, EmbedHeightMean)
-        EmbedHeightSigma = GetParam('What is the standard deviation for dielectric height above? ',1, EmbedHeightSigma)
+        EmbedHeightMean = GetParam('What is the dielectrical height above the bottom of the trace? ', EmbedHeightMean)
+        EmbedHeightSigma = GetParam('What is the standard deviation for dielectric height above? ', EmbedHeightSigma)
         EmbedHeight = EmbedHeightMean  # Keep as default value 
         
         TraceThickVal = TraceThick
@@ -156,9 +160,10 @@ def EmbedMicroStripStatAnal():
         InductSigma = math.sqrt(InductSigma / (NumIterations-1))
         ResistSigma = math.sqrt(ResistSigma / (NumIterations-1))
 
-        LineAnalStatOut(IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
+        LineAnalStatOut(text, IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
             CapMean,CapSigma, InductMean,InductSigma, ResistMean,ResistSigma)
-        Again = GetResponse('Another statistical embedded microstripline analysis (y/n)?', 'n')
+        input = gui_input(400, 'Another statistical embedded microstripline analysis (y/n)?', 0)
+        if (input == 'n') or (input =='N') : Again = False        
         if (Again == False) : break
 
 

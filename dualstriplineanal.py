@@ -5,7 +5,7 @@ from beatio import *
 from beatcalc import *
 
 #**************************************************************************
-def DualStripAnal():
+def DualStripAnal(text):
 #                                                                          
 # Determines the impedance and propagation #constant of dual-stripline      
 # using the equation found the IPC Standard "Design standard for electronic
@@ -23,12 +23,13 @@ def DualStripAnal():
     global SigPlaneSep
     Again = True
     while Again == True :
-        os.system('cls')
-        print ('Dual-stripline analysis')
-        print ('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'Dual-stripline analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         TraceThick, TraceWidth, TraceHeight, DiConst = GetTraceParam()        
-        SigPlaneSep = GetParam('What is the signal plane separation? ',1,SigPlaneSep)
+        SigPlaneSep = GetParam('What is the signal plane separation? ',SigPlaneSep)
         ImpFactor1 = 80/math.sqrt(DiConst)
         ImpFactor2 = math.log(1.9*(2*TraceHeight + TraceThick)/(0.8*TraceWidth + TraceThick))
         ImpFactor3 = 1 - (TraceHeight/(4*(TraceHeight + SigPlaneSep + TraceThick)))
@@ -37,13 +38,14 @@ def DualStripAnal():
         Cap = IntProp/IntImped*1e3/12
         Induct = IntProp * IntImped/12
         Resist = ResistCopper/(TraceThick * TraceWidth)*1000
-        LineAnalOut(IntImped, IntProp, Cap, Induct, Resist)
-        Again = GetResponse('Another dual-stripline analysis (y/n)?', 'n')
+        LineAnalOut(text, IntImped, IntProp, Cap, Induct, Resist)
+        input = gui_input(300, 'Another dual-stripline analysis (y/n)?',0)
+        if (input == 'n') or (input =='N') : Again = False        
         if (Again == False) : break
 
 
 #************************************************************************
-def DualStripStatAnal():
+def DualStripStatAnal(text):
 #                                                                          
 # Determines the impedance and propagation #constant of dual-stripline      
 # using the equation found the IPC Standard "Design standard for electronic
@@ -65,10 +67,11 @@ def DualStripStatAnal():
     global NumIterations, IterationsMax, ResistCopper, SigPlaneSep, SigPlaneSepSigma
     Again = True
     while Again == True :
-        os.system('cls')
-        print ('S t a t i s t i c a l    Dual-strip Line Analysis')
-        print ('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'S t a t i s t i c a l    Dual-strip Line Analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         NumIterations = StatIterNum(NumIterations)
             
         StatData = [[0 for x in range(NumIterations+2)] for y in range(6)]         
@@ -76,11 +79,11 @@ def DualStripStatAnal():
         TraceThickMean, TraceThickSigma, TraceWidthMean, TraceWidthSigma,  \
         TraceHeightMean, TraceHeightSigma, DiConstMean, DiConstSigma = GetTraceStatParam()
         SigPlaneSepMean = SigPlaneSep  # Get default value 
-        SigPlaneSepMean = GetParam('What is the mean signal plane separation? ',1,SigPlaneSepMean)
-        SigPlaneSepSigma = GetParam('What is the standard deviation? ',1,SigPlaneSepSigma)
+        SigPlaneSepMean = GetParam('What is the mean signal plane separation? ',SigPlaneSepMean)
+        SigPlaneSepSigma = GetParam('What is the standard deviation? ',SigPlaneSepSigma)
         SigPlaneSep = SigPlaneSepMean  # Keep as default value 
-        print('\n')
-        print('Working')
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Working')
 
         for i in range(1,  NumIterations + 1) : 
             TraceThickVal = RNDNormal(TraceThickMean,TraceThickSigma)
@@ -140,9 +143,10 @@ def DualStripStatAnal():
         InductSigma = math.sqrt(InductSigma / (NumIterations-1))
         ResistSigma = math.sqrt(ResistSigma / (NumIterations-1))
 
-        LineAnalStatOut(IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
+        LineAnalStatOut(text, IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
             CapMean,CapSigma, InductMean,InductSigma, ResistMean,ResistSigma)
-        Again = GetResponse('Another statistical stripline analysis (y/n)?', 'n')
+        input = gui_input(400, 'Another statistical stripline analysis (y/n)?',0)
+        if (input == 'n') or (input =='N') : Again = False        
         if (Again == False) : break
 
 

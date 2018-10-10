@@ -220,9 +220,8 @@ if __name__ == '__main__':
         if SelOpt == '1':
 	        winbeat.destroy()
         elif SelOpt == '2':
-            while True :
-                Again = Reflectcoef(text)
-                if (Again =='n') or (Again =='N') : break
+            Reflectcoef(text)
+            clear_textwindow(text)
         elif SelOpt == '3':
             StripLineAnal(text)
             clear_textwindow(text)
@@ -230,9 +229,11 @@ if __name__ == '__main__':
             MicroStripAnal(text)
             clear_textwindow(text)
         elif SelOpt == '5':
-            DualStripAnal()
+            DualStripAnal(text)
+            clear_textwindow(text)           
         elif SelOpt == '6':
-            EmbeddedMicroStripAnal()
+            EmbeddedMicroStripAnal(text)
+            clear_textwindow(text)            
         elif SelOpt == '7':
             DistCapAnal()
         elif SelOpt == '8':

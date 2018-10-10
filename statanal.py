@@ -33,8 +33,10 @@ def StatAnal(text) :
             MicroStripStatAnal(text)
             clear_textwindow(text)
         elif SelOpt == '4' :
-            DualStripStatAnal()
+            DualStripStatAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '5' :
-            EmbedMicroStripStatAnal()
+            EmbedMicroStripStatAnal(text)
+            clear_textwindow(text)            
         else :
             pass
