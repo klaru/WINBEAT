@@ -30,7 +30,8 @@ def StatAnal(text) :
             StripLineStatAnal(text)
             clear_textwindow(text)
         elif SelOpt == '3' :
-            MicroStripStatAnal()
+            MicroStripStatAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '4' :
             DualStripStatAnal()
         elif SelOpt == '5' :

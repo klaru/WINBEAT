@@ -227,7 +227,8 @@ if __name__ == '__main__':
             StripLineAnal(text)
             clear_textwindow(text)
         elif SelOpt == '4':
-            MicroStripAnal()									
+            MicroStripAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '5':
             DualStripAnal()
         elif SelOpt == '6':

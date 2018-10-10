@@ -3,9 +3,10 @@ import os, sys
 from beatinc import *
 from beatio import *
 from beatcalc import *
+from tkinter import *
 
 #**************************************************************************
-def MicroStripAnal():
+def MicroStripAnal(text):
 #                                                                          
 # Calculates the line impedance of a microstrip trace using the model      
 # defined by Schwarzmann in his paper "Microstrip plus equations adds      
@@ -33,14 +34,14 @@ def MicroStripAnal():
     global SoldMask
     Again = True
     while Again == True :
-        os.system('cls')
-        print('Micro-stripline analysis')
-        print('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'Micro-stripline analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
         TraceThick, TraceWidth, TraceHeight, DiConst = GetTraceParam()        
-        print('Solder mask? (w-wet, d-dry, n-none)  [', SoldMask,']', end="")
         while True :
-            temp = input()
+            temp = gui_input_string(400, 'Solder mask? (w-wet, d-dry, n-none) ', SoldMask)
             if (temp == 'n') or (temp == 'w') or (temp == 'd') or (temp == ''): break
         if temp == "" : temp = 'n'
         if (temp != '') : 
@@ -54,13 +55,14 @@ def MicroStripAnal():
         Cap = (2*(UpCap + FringeCap) + LowCap)/12
         Induct = IntProp * IntImped/12
         Resist = ResistCopper/(TraceThick * TraceWidth)*1000
-        LineAnalOut(IntImped, IntProp, Cap, Induct, Resist)
-        Again = GetResponse('Another micro-stripline analysis (y/n)?', 'n')
+        LineAnalOut(text, IntImped, IntProp, Cap, Induct, Resist)
+        input = gui_input(300, 'Another micro-stripline analysis (y/n)?',0)
+        if (input == 'n') or (input =='N') : Again = False
         if (Again == False) : break
 
         
 #************************************************************************
-def MicroStripStatAnal():
+def MicroStripStatAnal(text):
 #                                                                          
 # Calculates the line impedance of a microstrip trace using the model      
 # defined by Schwarzmann in his paper "Microstrip plus equations adds      
@@ -92,19 +94,19 @@ def MicroStripStatAnal():
     global TraceThick, TraceWidth, TraceHeight, DiConst, EffDiConst, NumIterations, IterationsMax, ResistCopper, SoldMask
     Again = True
     while Again == True :
-        os.system('cls')
-        print ('S t a t i s t i c a l    Microstrip Line Analysis')
-        print ('-----------------------------------------------------------')
-        print('\n')
+        clear_textwindow(text)
+        text.insert('1.0', 'S t a t i s t i c a l    Microstrip Line Analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(INSERT, '\n')
         NumIterations = StatIterNum(NumIterations)
             
         StatData = [[0 for x in range(NumIterations+2)] for y in range(6)]      
      
         TraceThickMean, TraceThickSigma, TraceWidthMean, TraceWidthSigma,  \
-        TraceHeightMean, TraceHeightSigma, DiConstMean, DiConstSigma = GetTraceStatParam()
-        print('Solder mask? (w-wet, d-dry, n-none)  [', SoldMask,']', end="")
+        TraceHeightMean, TraceHeightSigma, DiConstMean, DiConstSigma = GetTraceStatParam()       
         while True :
-            temp = input()
+            temp = gui_input_string(400, 'Solder mask? (w-wet, d-dry, n-none) ', SoldMask)
             if (temp == 'n') or (temp == 'w') or (temp == 'd') or (temp == ''): break
         if temp == "" : temp = 'n'
         if (temp != '') : 
@@ -114,8 +116,8 @@ def MicroStripStatAnal():
         TraceHeightVal = TraceHeight
         DiConstVal = DiConst
         EffDiConstVal = EffDiConst
-        print('\n')
-        print ('Working')
+        text.insert(END, '\n')
+        text.insert(INSERT, 'Working')
         for i in range(1,  NumIterations +1) :
             TraceThickVal = RNDNormal(TraceThickMean,TraceThickSigma)
             TraceWidthVal = RNDNormal(TraceWidthMean,TraceWidthSigma)
@@ -180,9 +182,10 @@ def MicroStripStatAnal():
         InductSigma = math.sqrt(InductSigma / (NumIterations-1))
         ResistSigma = math.sqrt(ResistSigma / (NumIterations-1))
 
-        LineAnalStatOut(IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
+        LineAnalStatOut(text, IntImpedMean,IntImpedSigma, IntPropMean,IntPropSigma, \
             CapMean,CapSigma, InductMean,InductSigma, ResistMean,ResistSigma)
-        Again = GetResponse('Another statistical stripline analysis (y/n)?', 'n')
+        input = gui_input(300, 'Another statistical stripline analysis (y/n)?',0)
+        if (input == 'n') or (input =='N') : Again = False  
         if (Again == False) : break
 
 
