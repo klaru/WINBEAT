@@ -5,7 +5,6 @@ from tkinter import *
 
 #procedure GetParam (question : str; UnitSel : integer; var number : extended);
 #procedure GetIParam (question : str; var number : integer);
-#procedure GetResponse (question : str; var response : boolean);
 #procedure GetTraceParam;
 #procedure GetTraceStatParam;
 #procedure TraceParamOut;
@@ -17,6 +16,8 @@ from tkinter import *
 #procedure menu(NumOpt : integer; Header : str; OptArray : strgarray; var SelOpt : opt);
 #procedute StatIterNum;
 #procedure gui_input
+#procedure gui_input_string
+#procedure clear_textwindow
 
 #****************************************************************************
 def GetParam(question, number) :
@@ -51,30 +52,6 @@ def GetNetInfo():
     TRise = GetParam('What is the rise time?',TRise)
     return IntImped, IntProp, Resist, TraceLength, TRise
 #end
-
-
-#****************************************************************************
-def GetResponse (question, yn) :
-#****************************************************************************
-
-    Query = yn
-    print (question, '[',yn,'] ', end='')
-    while True :
-        string = input()
-        if ((string == 'y') 
-		 or (string == 'Y') 
-		 or (string == 'n') 
-		 or (string == 'N') 
-		 or (string == '')) : break
-    if string != '' :
-	    Query = string
-    if ((Query == 'y') 
-	 or (Query == 'Y')) :
-        Response = True
-    else :
-        Response = False
-    return Response
-#end  GetResponse
 
 #****************************************************************************
 def GetTraceParam() :
@@ -126,18 +103,29 @@ def GetTraceStatParam() :
 #end GetTraceStatParam
 
 #****************************************************************************
-def TraceParamOut() :
+def TraceParamOut(text) :
 #****************************************************************************
-
-      print ('Micro-strip Trace Parameters')
-      print ('-----------------------------')
-      print ('Thickness:  %5.4f' %(TraceThick), ' in.')			
-      print ('Width:      %4.3f' %(TraceWidth), ' in.')       
-      print ('Height:     %4.3f' %(TraceHeight), ' in.')         
-      print ('Spacing:    %4.3f' %(TraceSpacing), ' in.')       
-      print ('Er:         %3.2f' %(DiConst))                    
-      print ('DistCap     %5.4f' %(DistCap))                    
-      print ('\n')
+      text.insert('1.0', 'Micro-strip Trace Parameters')
+      text.insert(END, '\n')
+      text.insert(INSERT, '-----------------------------')
+      text.insert(END, '\n')
+      text.insert('Thickness:  ')
+      text.insert(INSERT, '%5.4f' %(TraceThick))
+      text.insert(INSERT, ' in.')			
+      text.insert('Width:      ')
+      text.insert(INSERT, '%4.3f' %(TraceWidth))
+      text.insert(INSERT, ' in.')       
+      text.insert('Height:     ')
+      text.insert(INSERT, '%4.3f' %(TraceHeight))
+      text.insert(INSERT, ' in.')         
+      text.insert('Spacing:    ')
+      text.insert(INSERT, '%4.3f' %(TraceSpacing))
+      text.insert(INSERT, ' in.')       
+      text.insert('Er:         ')
+      text.insert(INSERT, '%3.2f' %(DiConst))                    
+      text.insert('DistCap     ')
+      text.insert(INSERT, '%5.4f' %(DistCap))                    
+      text.insert('\n')
 # end TraceParamOut
 
 
@@ -252,18 +240,20 @@ def menu(NumOpt, Header, OptArray, text):
     text.pack()
 
 #************************************************************************
-def StatIterNum(NumIterations) :
+def StatIterNum(NumIterations, text) :
 #************************************************************************           
         while True:    
             NumIterations = GetIParam('Enter number of iterations :', NumIterations)
             if (NumIterations <= 0) or (NumIterations > IterationsMax) :
-                print('\n')
-                print('The number of iterations must be more than 1.')
-                print('If you want to exceed ',IterationsMax,' Iterations,')
-                print('you will have to change the #constant "IterationsMax"')
-                print('in "beatinc.py" and recompile the program.')
-                print('\n')
-                answer = GetResponse('Hit >RETURN< to continue','y')            
+                text.insert(END, '\n')
+                text.insert(INSERT, 'The number of iterations must be more than 1.')
+                text.insert(INSERT, 'If you want to exceed ')
+                text.insert(INSERT,IterationsMax)
+                text.insert(INSERT, ' Iterations,')
+                text.insert(INSERT, 'you will have to change the #constant "IterationsMax"')
+                text.insert(INSERT, 'in "beatinc.py" and recompile the program.')
+                text.insert(END, '\n')
+                gui_input(200, 'Hit >RETURN< to continue', 0)            
             if (NumIterations > 0) and (NumIterations <= IterationsMax) : break
         return NumIterations            
 
