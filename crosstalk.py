@@ -48,7 +48,7 @@ def CrossTalk(text):
 #   Update,
 #   Again,IntGnd : boolean
 #   SoldMask : char
-    global DiConst, TraceSpacing, DistCap, LoadImp, EvenLineImp, OddLineImp, EvenIntProp, OddIntProp
+    global DiConst, TraceThick, TraceWidth, TraceHeight, TraceSpacing, DistCap, LoadImp, EvenLineImp, OddLineImp, EvenIntProp, OddIntProp
 #begin
     Again = True
     VoltStep = 3.0               #v
@@ -69,19 +69,19 @@ def CrossTalk(text):
         SoldMask = 'w'
         EffDiConst = 0.58*DiConst + 0.55 # Set for wet solder mask 
         clear_textwindow(text)
-        text.insert('1.0.', 'Crosstalk Analysis')
+        text.insert('1.0', 'Crosstalk Analysis')
         text.insert(END, '\n')
         text.insert(INSERT, '-----------------------------------------------------------')
         text.insert(END, '\n')
         TraceParamOut
+        Update = False
         input = gui_input(300, 'New trace parameters (y/n)? ', 0)
         if (input == 'y') or (input =='Y') : Update = True       
         if Update == True :
         #begin
             TraceThick, TraceWidth, TraceHeight, DiConst = GetTraceParam()
             # Adjust the dielectric #constant for solder mask 
-            print('Solder mask? (w-wet, d-dry, n-none) ', end='')
-            SoldMask = input()
+            SoldMask = gui_input(300, 'Solder mask? (w-wet, d-dry, n-none) ', 0)
             if SoldMask == 'n' : 
                 EffDiConst = 0.475*DiConst + 0.67
             elif SoldMask == 'w' : 
@@ -91,14 +91,14 @@ def CrossTalk(text):
             #end
         #end
         # Request data essential for crosstalk analysis 
-        TraceSpacing = GetParam('Trace spacing from edge to edge ?', TraceSpacing)
-        TraceLength = GetParam('Trace length ?', TraceLength)
-        DistCap = GetParam('What is the distributed cap.?', DistCap)
-        RiseTime = GetParam('Signal Rise time ?', RiseTime)
-        VoltStep = GetParam('Voltage step ?', VoltStep)
+        TraceSpacing = GetParam('Trace spacing from edge to edge ?  ', TraceSpacing)
+        TraceLength = GetParam('Trace length ?  ', TraceLength)
+        DistCap = GetParam('What is the distributed cap.?  ', DistCap)
+        RiseTime = GetParam('Signal Rise time ?  ', RiseTime)
+        VoltStep = GetParam('Voltage step ?  ', VoltStep)
         LoadImp = GetParam('What is the load impedance ? ', LoadImp)
-        IntGnd = GetResponse('Interlaced grounds (y/n)? ', 'n')
-        BusStruct = GetResponse('Bus Structure (y/n)? ', 'n')
+        IntGnd = gui_input(300, 'Interlaced grounds (y/n)? ', 0)
+        BusStruct = gui_input(300, 'Bus Structure (y/n)? ', 0)
         # For a bus structure 
         if BusStruct == True :
             #begin
@@ -201,47 +201,60 @@ def CrossTalk(text):
         text.insert(INSERT, 'RiseTime:      ')
         text.insert(INSERT, '%3.2F' %(RiseTime))
         text.insert(INSERT, ' ns')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Voltage Step:  ')
         text.insert(INSERT, '%4.2f' %(VoltStep))
         text.insert(INSERT, ' v')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Dist. Cap.:    ')
         text.insert(INSERT, '%4.2f' %(DistCap))
         text.insert(INSERT, ' pf/in')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Trace Length:  ')
         text.insert(INSERT, '%4.2f' %(TraceLength))
         if IntGnd == True :
             text.insert(INSERT, 'Interlaced grounds')
         text.insert(END, '\n')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Crosstalk Data')
         text.insert(END, '\n')        
         text.insert(INSERT, '-------------------------')
         text.insert(END, '\n')        
         text.insert(INSERT, 'Backward Crosstalk Constant:    ')
         text.insert(INSERT, '%4.3f' %(BackCrossConst))
+        text.insert(END, '\n')
         text.insert(INSERT, 'Backward Crosstalk Voltage:     ')
         text.insert(INSERT, '%4.3f' %(BackVolt))
         text.insert(INSERT, ' v')
+        text.insert(END, '\n')
         text.insert(INSERT, 'Backward Crosstalk Pulse Width: ')
         text.insert(INSERT, '%4.3f' %(BackPulWid))
         text.insert(INSERT, ' ns')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Forward Crosstalk Constant:     ')
         text.insert(INSERT, '%4.3f' %(ForCrossConst))
         text.insert(INSERT, ' ns/ft')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Forward Crosstalk Voltage:      ')
         text.insert(INSERT, '%4.3f' %(ForVolt))
         text.insert(INSERT, ' v')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Forward Crosstalk Pulse Width:  ')
         text.insert(INSERT, '%4.3f' %(ForPulWid))
         text.insert(INSERT, ' ns')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Even Line Impedance:            ')
         text.insert(INSERT, '%4.2f' %(EvenLineImp))
         text.insert(INSERT, ' ohms')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Odd Line Impedance:             ')
         text.insert(INSERT, '%4.2f' %(OddLineImp))
         text.insert(INSERT, ' ohms')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Even Prop Const:                ')
         text.insert(INSERT, '%4.3f' %(EvenIntProp))
         text.insert(INSERT, ' ns/ft')
+        text.insert(END, '\n')		
         text.insert(INSERT, 'Odd Prop Const:                 ')
         text.insert(INSERT, '%4.3f' %(OddIntProp))
         text.insert(INSERT, ' ns/ft')

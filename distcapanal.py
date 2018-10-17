@@ -21,9 +21,9 @@ def DistCapAnal():
         print('Calculates the effective impedance and prop delay')
         print('-----------------------------------------------------------')
         print('\n')
-        IntImped = GetParam('What is the intrinsic impedance ?',2,IntImped)
-        IntProp = GetParam('What is the intrinsic delay ? ',6,IntProp)
-        DistCap = GetParam('What is the distributed capacitance ?',3,DistCap)
+        IntImped = GetParam('What is the intrinsic impedance ?',IntImped)
+        IntProp = GetParam('What is the intrinsic delay ? ',IntProp)
+        DistCap = GetParam('What is the distributed capacitance ?',DistCap)
         IntCap = IntProp/IntImped*1e3/12
         EffImped = IntImped / LoadAdjust(IntCap, DistCap)
         EffProp = IntProp * LoadAdjust(IntCap, DistCap)

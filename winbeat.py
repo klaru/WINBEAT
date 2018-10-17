@@ -165,7 +165,8 @@ if __name__ == '__main__':
         elif SelOpt == '7':
             DistCapAnal()
         elif SelOpt == '8':
-            CrossTalk()
+            CrossTalk(text)
+            clear_textwindow(text)
         elif SelOpt == '9':						
             LadderNetAnal()
         elif SelOpt == '10':					
