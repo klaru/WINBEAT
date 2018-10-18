@@ -163,7 +163,8 @@ if __name__ == '__main__':
             EmbeddedMicroStripAnal(text)
             clear_textwindow(text)            
         elif SelOpt == '7':
-            DistCapAnal()
+            DistCapAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '8':
             CrossTalk(text)
             clear_textwindow(text)
