@@ -169,7 +169,8 @@ if __name__ == '__main__':
             CrossTalk(text)
             clear_textwindow(text)
         elif SelOpt == '9':						
-            LadderNetAnal()
+            LadderNetAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '10':					
             FourierAnal()
         elif SelOpt == '11':				

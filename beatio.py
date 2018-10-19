@@ -45,11 +45,11 @@ def GetNetInfo():
 #*************************************************************************
 #begin
     global IntImped, IntProp, Resist, TraceLength, TRise
-    IntImped = GetParam('What is the line impedance?',IntImped)
-    IntProp = GetParam('What is the propagation delay?',IntProp)
-    Resist = GetParam('What is the intrinsic resistance?',Resist)
-    TraceLength = GetParam('What is the line length?',TraceLength)
-    TRise = GetParam('What is the rise time?',TRise)
+    IntImped = GetParam('What is the line impedance?  ',IntImped)
+    IntProp = GetParam('What is the propagation delay?  ',IntProp)
+    Resist = GetParam('What is the intrinsic resistance?  ',Resist)
+    TraceLength = GetParam('What is the line length?  ',TraceLength)
+    TRise = GetParam('What is the rise time?  ',TRise)
     return IntImped, IntProp, Resist, TraceLength, TRise
 #end
 
