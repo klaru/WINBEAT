@@ -1,7 +1,6 @@
 #! python3
 import os, sys, math, random
 from beatinc import *
-from beatio import *
  
 #procedure LineImped (var LineImp : extended; Prop,LowCap,UpCap1,UpCap2,FringeCap1,FringeCap2 : extended);
 #procedure PropConst (var IntProp : extended; LowCap, UpCap1, UpCap2, FringeCap1, FringeCap2 : extended);

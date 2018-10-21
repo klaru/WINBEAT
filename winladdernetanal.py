@@ -1,9 +1,8 @@
 #! python3
 import os, sys, math
-from beatio import *
 from beatinc import *
 from beatmath import *
-from tkinter import *
+from winbeatio import *
 
 #**************************************************************************
 def LadderNetAnal(text):

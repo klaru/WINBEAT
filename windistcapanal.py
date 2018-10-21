@@ -1,8 +1,8 @@
 #!python3
 import os, sys
-from beatio import *
-from beatcalc import *
 from tkinter import *
+from beatcalc import *
+from winbeatio import *
 
 #**************************************************************************
 def DistCapAnal(text):

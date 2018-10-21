@@ -1,8 +1,7 @@
 #! python3
 import os, sys, math
 from beatinc import *
-from beatio import *
-from tkinter import *
+from winbeatio import *
 
 #procedure FourierValues(var Cmag, Cphase:extendedvector);
 #procedure FourierAnal;

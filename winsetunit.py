@@ -1,8 +1,7 @@
 #! python3
 import os, sys
 from beatinc import *
-from beatio import clear_textwindow, gui_input
-from tkinter import *
+from winbeatio import clear_textwindow, gui_input
 
 #************************************************************************
 def SetUnit(text):

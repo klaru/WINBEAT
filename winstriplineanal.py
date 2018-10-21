@@ -1,9 +1,8 @@
 #! python3
 import os, sys
 from beatinc import *
-from beatio import *
 from beatcalc import *
-from tkinter import *
+from winbeatio import *
 
 #****************************************************************************
 def StripLineAnal(text) :

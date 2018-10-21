@@ -2,7 +2,7 @@
 import os, sys
 from tkinter import *
 from beatinc import *
-from beatio import *
+from winbeatio import *
 
 #****************************************************************************)
 def Help(text):
@@ -18,23 +18,23 @@ def Help(text):
     def help_reflect() :
         print_help('reflect.hlp')		# reflectcoef
     def help_stripanal() :
-        print_help('stripanal.hlp')	    # StripLineAnal
+        print_help('stripanal.hlp')	        # StripLineAnal
     def help_microstripanal() :
-        print_help('microanal.hlp')	    # MicroStripAnal										
+        print_help('microanal.hlp')	        # MicroStripAnal										
     def help_dualstripanal() :
         print_help('dualanal.hlp')		# DualStripAnal
     def help_embedmicrostripanal() :
-        print_help('embedmicro.hlp')	# EmbedMicroStripAnal
+        print_help('embedmicro.hlp')	        # EmbedMicroStripAnal
     def help_distcapanal() :
         print_help('distcap.hlp')		# DistCapAnal
     def help_crosstalk() :
-        print_help('crosstalk.hlp')   	# Crosstalk
+        print_help('crosstalk.hlp')     	# Crosstalk
     def help_laddernetanal() :						
         print_help('tmodel.hlp')		# LadderNetAnal
     def help_fourieranal() :					
         print_help('fourier.hlp')		# FourierAnal
     def help_statanal() :				
-        print_help('statistics.hlp')	# StatAnal
+        print_help('statistics.hlp')	        # StatAnal
     def help_setunit() :			
         print_help('unitsel.hlp')		# SetUnit
     def help_loadparameters() :

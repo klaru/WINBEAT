@@ -1,9 +1,7 @@
 #! python3
 import os, sys
 from beatinc import *
-from beatio import *
-from tkinter import *
-
+from winbeatio import *
  
 #****************************************************************************
 def Reflectcoef(text) :

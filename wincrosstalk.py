@@ -1,9 +1,9 @@
 #! python3
 import os, sys
-from beatinc import *
-from beatio import *
-from beatcalc import *
 from tkinter import *
+from beatinc import *
+from beatcalc import *
+from winbeatio import *
 
 #**************************************************************************
 def CrossTalk(text):

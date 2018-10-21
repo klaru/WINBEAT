@@ -35,21 +35,23 @@
 
 import os, sys
 from tkinter import *
+
 from beatinc import *
-from beatio import *
 from beatcalc import *
-from reflectcoef import Reflectcoef
-from striplineanal import StripLineAnal
-from microstriplineanal import MicroStripAnal
-from dualstriplineanal import DualStripAnal
-from embedmicrostriplineanal import EmbeddedMicroStripAnal
-from setunit import SetUnit
-from statanal import StatAnal
-from distcapanal import DistCapAnal
-from crosstalk import CrossTalk
-from laddernetanal import LadderNetAnal
-from loadparameters import LoadParameters 
-from beatfourier import FourierValues, FourierAnal
+
+from winbeatio import *
+from winreflectcoef import Reflectcoef
+from winstriplineanal import StripLineAnal
+from winmicrostriplineanal import MicroStripAnal
+from windualstriplineanal import DualStripAnal
+from winembedmicrostriplineanal import EmbeddedMicroStripAnal
+from winsetunit import SetUnit
+from winstatanal import StatAnal
+from windistcapanal import DistCapAnal
+from wincrosstalk import CrossTalk
+from winladdernetanal import LadderNetAnal
+from winloadparameters import LoadParameters 
+from winfourier import FourierValues, FourierAnal
 from winhelp import Help
    
 if __name__ == '__main__':

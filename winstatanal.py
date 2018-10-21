@@ -1,11 +1,11 @@
 #! python3
 import os, sys
 from beatinc import *
-from beatio import *
-from striplineanal import StripLineStatAnal
-from microstriplineanal import MicroStripStatAnal
-from dualstriplineanal import DualStripStatAnal
-from embedmicrostriplineanal import EmbedMicroStripStatAnal
+from winbeatio import *
+from winstriplineanal import StripLineStatAnal
+from winmicrostriplineanal import MicroStripStatAnal
+from windualstriplineanal import DualStripStatAnal
+from winembedmicrostriplineanal import EmbedMicroStripStatAnal
 
 #************************************************************************
 def StatAnal(text) :
