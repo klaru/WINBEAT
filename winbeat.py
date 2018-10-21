@@ -172,7 +172,8 @@ if __name__ == '__main__':
             LadderNetAnal(text)
             clear_textwindow(text)
         elif SelOpt == '10':					
-            FourierAnal()
+            FourierAnal(text)
+            clear_textwindow(text)
         elif SelOpt == '11':				
             StatAnal(text)
             clear_textwindow(text)

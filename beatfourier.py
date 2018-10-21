@@ -2,6 +2,7 @@
 import os, sys, math
 from beatinc import *
 from beatio import *
+from tkinter import *
 
 #procedure FourierValues(var Cmag, Cphase:extendedvector);
 #procedure FourierAnal;
@@ -12,7 +13,7 @@ Cphase = [0.0] * (NumHarmonics + 1)
 Slope = [0.0] * (NumHarmonics + 1)
 Csub = [0.0] * (NumHarmonics + 1)
 
-def FourierValues():
+def FourierValues(text):
 #var
 #  Csub,
 #  Slope : extendedvector;
@@ -22,12 +23,12 @@ def FourierValues():
 #  Period : extended;
 
     global NumHarmonics, NumPoints, Period
-    print('\n')
+    text.insert(END, '\n')
     NumHarmonics = GetIParam('Number of Harmonics? ', NumHarmonics)
     NumPoints = GetIParam('Number of Points? ', NumPoints)
     Period = GetParam('Enter Period : ', Period)
     for X in range(1, NumPoints + 1) :
-        print('\n')
+        text.insert(END, '\n')
         Time[X] = GetParam('Enter time : ', Time[X])
         Magnitude[X] = GetParam('Enter magnitude: ', Magnitude[X])
     #end for
@@ -53,21 +54,29 @@ def FourierValues():
         Cmag[K] = (Period/(math.pow(2*pi*K,2)))*math.sqrt(math.pow(A,2) + math.pow(B,2))
         Cphase[K] = math.atan2(B,A)
     #end for
-    os.system('cls')
-    print('FUNCTION DEFINITION')
-    print('------------------------------')
-    print('Period(ns) ', Period)
-    print('\n')
-    print('| Point | Time(ns)| Magnitude |')
-    print('------------------------------')
+    clear_textwindow(text)
+    text.insert('1.0', 'FUNCTION DEFINITION')
+    text.insert(END, '\n')
+    text.insert(INSERT, '------------------------------')
+    text.insert(END, '\n')
+    text.insert(INSERT, 'Period(ns) ')
+    text.insert(INSERT, Period)
+    text.insert(END, '\n')
+    text.insert(INSERT, '| Point | Time(ns)| Magnitude |')
+    text.insert(END, '\n')
+    text.insert(INSERT, '-------------------------------')
+    text.insert(END, '\n')
     for X in range(1, NumPoints + 1) :
-        print('|%6d' %(X),' |%7d' %(Time[X]), ' |%10d' %(Magnitude[X]),' |')			#X:6 Time[X]:7 Magnitude[X]:10
-    print('\n')
+        text.insert(INSERT, '|%6d' %(X))
+        text.insert(INSERT, '  |%7d' %(Time[X]))
+        text.insert(INSERT, ' |%10d' %(Magnitude[X]))
+        text.insert(INSERT,' |')
+        text.insert(END, '\n')       
     return Cmag, Cphase
 #end FourierValues
 
 #****************************************************************************
-def FourierAnal():
+def FourierAnal(text):
 #****************************************************************************
 
 #var
@@ -79,24 +88,32 @@ def FourierAnal():
     Again = True
     while Again == True :
         FourierCoefDat = open('FourierCoef.dat','w')
-        os.system('cls')
-        print('This program executes a fourier analysis')
-        print('-----------------------------------------------------------')
-        Cmag, Cphase = FourierValues()
-        print('\n')
-        print('| Harmonic | C_Mag     | C_Phase    |')
-        print('-------------------------------------')
+        clear_textwindow(text)
+        text.insert('1.0', 'This program executes a fourier analysis')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-----------------------------------------------------------')
+        text.insert(END, '\n')
+        Cmag, Cphase = FourierValues(text)
+        text.insert(INSERT, '| Harmonic | C_Mag     | C_Phase    |')
+        text.insert(END, '\n')
+        text.insert(INSERT, '-------------------------------------')
+        text.insert(END, '\n')
         lineout = str(NumHarmonics) + str(Period)
         FourierCoefDat.write(lineout)
         for K in range(NumHarmonics + 1) :
-            print('|%9d' %(K),' |%10d' %(Cmag[K]), ' |%10d' %(Cphase[K]),' |')		    #K:9 Cmag[K]:10 Cphase[K]:10
+            text.insert(INSERT, '|%9d' %(K))
+            text.insert(INSERT, ' |%10d' %(Cmag[K]))
+            text.insert(INSERT, '  |%10d' %(Cphase[K]))
+            text.insert(INSERT,' |')
+            text.insert(END, '\n')           
             lineout = str(K) + str(Cmag[K]) + str(Cphase[K])
             FourierCoefDat.write(lineout)
         #end for
-        print('(Coefficient data written to file "FourierCoefDat".)')
-        print('\n')
+        text.insert(INSERT, '(Coefficient data written to file "FourierCoefDat".)')
+        text.insert(END, '\n')
         FourierCoefDat.close()
-        Again = GetResponse('Another fourier analysis (y/n)? ','y')
+        input = gui_input(300, 'Another fourier analysis (y/n)? ',0)
+        if (input == 'n') or (input =='N') : Again = False          
         if Again == False: break
     #end while
 #end FourierAnal
